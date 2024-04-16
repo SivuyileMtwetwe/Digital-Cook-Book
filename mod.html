@@ -4,68 +4,130 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/6f373610f6.js" crossorigin="anonymous"></script>
     <style>
-        nav {
-            background-color:brown;
-            color: rgb(252, 192, 83);
-            padding: 10px 20px;
-            text-align: center;
-        }
-
-        nav a {
-            color: rgb(252, 192, 83);
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-
-        .container {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+       nav {
+        
+    background-color:brown;
+    color: rgb(202, 137, 16);
+    padding: 12px;
+    text-align: center;
+    margin: -20px;
 }
 
+.logo{
+color:rgb(202, 137, 16);
+margin-right: 0px;
+padding:20px;
+justify-content: center;
+align-items: center;
+
+}
+
+
+nav a {
+    color: rgb(202, 137, 16);
+    text-decoration: none;
+    margin: 0 20px;
+    
+    
+
+}
+
+
+.container {
+padding: 20px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+h2{
+    padding: 20px;
+}
+
+
+
 .heading {
-    text-align: center;
-    margin-bottom: 20px;
+text-align: center;
+margin-bottom: 20px;
+}
+
+button{
+border-radius: 20px;
+color: rgb(202, 137, 16);
+background-color: brown;
+margin-left: 100px;
+justify-content: center;
+margin-bottom: 20px;
+padding: 10px;
+}
+
+.saveBtn{
+Border-radius: 20px;
+color: rgb(202, 137, 16);
+background-color: brown;
+margin-left: 10px;
+justify-content: center;
+margin-bottom: 20px;
+padding: 10px;
 }
 
 #recipes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
 }
 
 .recipe-card {
-    width: 300px;
-    margin: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    border: 1px solid brown;
-    background-color: rgb(252, 192, 83);
-    border-radius: 5px;
+width: 300px;
+margin: 10px;
+border-radius: 5px;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+border: 1px solid brown;
+background-color: rgb(202, 137, 16);
+border-radius: 5px;
 }
 
 .recipe-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+width: 100%;
+height: 300px;
+object-fit: cover;
 }
 
 .recipe-card h3 {
-    padding: 15px 10px;
-    font-size: 18px;
+padding: 15px 10px;
+font-size: 18px;
 }
 
 .recipe-card p {
-    padding: 10px;
+padding: 10px;
 }
+
+#sidebar {
+    width: 300px; /* Adjust width as needed */
+    background-color: #f0f0f0; /* Example background color */
+    padding: 20px;
+}
+
+#sidebar h2 {
+    margin-bottom: 10px;
+}
+
+#saved-recipes {
+    /* Additional styles for saved recipes container */
+}
+
+
     </style>
 </head>
 <body>
+    
     <nav>
+    <div class="logo">  
+        <i class="fa-solid fa-utensils"></i><br>
+    </div>
         <a href="#">Home</a>
         <a href="#">Recipes</a>
         <a href="#">About</a>
@@ -98,12 +160,18 @@
             <button onclick="filterRecipes()">Apply Filters</button>
         </div> -->
 
-
+    
+<div id="sidebar">
+    <h2>Saved Recipes</h2>
+    <div id="saved-recipes"></div>
+</div>
 
 
     <div class="container">
         <h1  class="heading">Welcome to foodies deli</h1>
-        <div id="recipes"></div>
+        <div id="recipes">
+
+        </div>
     </div>
 <script>
    let allRecipes = [];
@@ -137,42 +205,102 @@ function displayRecipes(recipes) {
       const ratingStars = document.createElement('p');
       ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
       card.appendChild(ratingStars);
-
-    //   const readMoreBtn = document.createElement('button');
-    //   readMoreBtn.textContent = 'Read More';
-    //   readMoreBtn.addEventListener('click', () => {
-    //     showMoreDetails(recipe);
-    //   });
-    //   card.appendChild(readMoreBtn);
-    },
-    function showMoreDetails(recipe) {
-    const card = document.getElementById(`recipe-${recipe.id}`);
-    const detailsSection = card.querySelector('.details-section');
-    detailsSection.classList.toggle('expanded');
     
-    const readMoreBtn = card.querySelector('.read-more-btn');
-    if (detailsSection.classList.contains('expanded')) {
-        readMoreBtn.textContent = 'Read Less';
-    } else {
-        readMoreBtn.textContent = 'Read More';
+      const readMoreBtn = document.createElement('button');
+      readMoreBtn.textContent = 'Read More';
+      readMoreBtn.addEventListener('click', () => {
+        showMoreDetails(recipe);
+      });
+      const saveBtn = document.createElement('button');
+            saveBtn.textContent = 'Save';
+            saveBtn.classList.add("saveBtn")
+            saveBtn.addEventListener('click', () => {
+            saveRecipe(recipe.id);
+
+});
+card.appendChild(saveBtn);
+      card.appendChild(readMoreBtn);
+    
+    // function showMoreDetails(recipe) {
+    // const card = document.getElementById(`recipe-${recipe.id}`);
+    // const detailsSection = card.querySelector('.details-section');
+    // detailsSection.classList.toggle('expanded');
+    
+    // const readMoreBtn = card.querySelector('.read-more-btn');
+    // if (detailsSection.classList.contains('expanded')) {
+    //     readMoreBtn.textContent = 'Read Less';
+    // } else {
+    //     readMoreBtn.textContent = 'Read More';
 
       recipesContainer.appendChild(card);
-    }});
-}
+    });
 
-// function showMoreDetails(recipe) {
-//     alert(`Details for ${recipe.name}:
-//     Ingredients: ${recipe.ingredients}
-//     Instructions: ${recipe.instructions}
-//     Serving: ${recipe.servings}
-//     Calories per Serving: ${recipe.caloriesPerServing}`);
-// }
+
+}
+function showMoreDetails(recipe) {
+    alert(`Details for ${recipe.name}:
+    Ingredients: ${recipe.ingredients}
+    Instructions: ${recipe.instructions}
+    Serving: ${recipe.servings}
+    Calories per Serving: ${recipe.caloriesPerServing}`);
+}
 
 function getStars(rating) {
   const roundedRating = Math.round(rating); 
-  const stars = '🔥'.repeat(roundedRating);
+  const stars = '⭐'.repeat(roundedRating);
   return stars;
 }
+
+
+function saveRecipe(recipeId) {
+    // Find the recipe in allRecipes array by its id
+    const recipe = allRecipes.find(recipe => recipe.id === recipeId);
+    // Retrieve saved recipes from local storage or initialize an empty array
+    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    // Check if the recipe is not already saved
+    if (!savedRecipes.some(savedRecipe => savedRecipe.id === recipe.id)) {
+        // Add the recipe to the saved recipes array
+        savedRecipes.push(recipe);
+        // Save the updated array back to local storage
+        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+        alert('Recipe saved!');
+    } else {
+        alert('Recipe already saved!');
+    }
+}
+
+
+// Function to display saved recipes in the sidebar
+function displaySavedRecipes(savedRecipes) {
+    const savedRecipesContainer = document.getElementById('saved-recipes');
+    savedRecipesContainer.innerHTML = '';
+
+    savedRecipes.forEach(savedRecipe => {
+        const recipeItem = document.createElement('div');
+        recipeItem.classList.add('saved-recipe-item');
+
+        const name = document.createElement('p');
+        name.textContent = savedRecipe.name;
+        recipeItem.appendChild(name);
+
+        // Additional details or actions can be added here
+
+        savedRecipesContainer.appendChild(recipeItem);
+    });
+}
+
+// Call this function whenever the page loads to display saved recipes from local storage
+function loadSavedRecipes() {
+    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    displaySavedRecipes(savedRecipes);
+}
+
+loadSavedRecipes(); // Call the function when the page loads
+
+
+
+
+
 </script>
 </body>
 </html>
