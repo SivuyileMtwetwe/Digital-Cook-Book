@@ -4,344 +4,349 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://kit.fontawesome.com/6f373610f6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-       nav {
-        
-    background-color:brown;
-    color: rgb(202, 137, 16);
-    padding: 12px;
-    text-align: center;
-    margin: -20px;
+        nav {
+            background-color: brown;
+            color: rgb(202, 137, 16);
+            padding: 12px;
+            text-align: center;
+            margin: -20px;
+        }
+
+        .logo {
+            color: rgb(202, 137, 16);
+            margin-right: 0px;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            color: rgb(202, 137, 16);
+            text-decoration: none;
+            margin: 0 20px;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            padding: 20px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            border-radius: 20px;
+            color: rgb(202, 137, 16);
+            background-color: brown;
+            margin-left: 100px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        .saveBtn {
+            border-radius: 20px;
+            color: rgb(202, 137, 16);
+            background-color: brown;
+            margin-left: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        #recipes {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .recipe-card {
+            width: 300px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid brown;
+            background-color: rgb(202, 137, 16);
+            border-radius: 5px;
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .recipe-card h3 {
+            padding: 15px 10px;
+            font-size: 18px;
+        }
+
+        .recipe-card p {
+            padding: 10px;
+        }
+
+        #sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            right: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            transition: left 0.3s ease;
+            z-index: 100%;
+        }
+
+        #sidebar nav {
+            margin-top: 20px;
+        }
+
+        #sidebar a {
+            display: block;
+            padding: 10px 0;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .hamburger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .hamburger i {
+            font-size: 24px;
+        }
+
+        .main-context {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar-open {
+            margin-left: 250px;
+        }
+
+        #sidebar h2 {
+            margin-bottom: 10px;
+        }
+
+        #saved-recipes {
+            /* Additional styles for saved recipes container */
+        }
+
+        .saved-recipe-item button {
+            margin-left: 10px;
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .saved-recipe-item button:hover {
+            background-color: #cc0000;
+        }
+
+        .submenu {
+    display: none;
 }
 
-.logo{
-color:rgb(202, 137, 16);
-margin-right: 0px;
-padding:20px;
-justify-content: center;
-align-items: center;
-
+.submenu.active {
+    display: block;
 }
-
-
-nav a {
-    color: rgb(202, 137, 16);
-    text-decoration: none;
-    margin: 0 20px;
-    
-    
-
-}
-
-
-.container {
-padding: 20px;
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
-h2{
-    padding: 20px;
-}
-
-
-
-.heading {
-text-align: center;
-margin-bottom: 20px;
-}
-
-button{
-border-radius: 20px;
-color: rgb(202, 137, 16);
-background-color: brown;
-margin-left: 100px;
-justify-content: center;
-margin-bottom: 20px;
-padding: 10px;
-}
-
-.saveBtn{
-Border-radius: 20px;
-color: rgb(202, 137, 16);
-background-color: brown;
-margin-left: 10px;
-justify-content: center;
-margin-bottom: 20px;
-padding: 10px;
-}
-
-#recipes {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
-}
-
-.recipe-card {
-width: 300px;
-margin: 10px;
-border-radius: 5px;
-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-overflow: hidden;
-border: 1px solid brown;
-background-color: rgb(202, 137, 16);
-border-radius: 5px;
-}
-
-.recipe-card img {
-width: 100%;
-height: 300px;
-object-fit: cover;
-}
-
-.recipe-card h3 {
-padding: 15px 10px;
-font-size: 18px;
-}
-
-.recipe-card p {
-padding: 10px;
-}
-
-#sidebar {
-    width: 300px; /* Adjust width as needed */
-    background-color: #f0f0f0; /* Example background color */
-    padding: 20px;
-}
-
-#sidebar h2 {
-    margin-bottom: 10px;
-}
-
-#saved-recipes {
-    /* Additional styles for saved recipes container */
-}
-
-.saved-recipe-item button {
-    margin-left: 10px; /* Adjust spacing as needed */
-    background-color: #ff0000; /* Example delete button color */
-    color: #ffffff; /* Example text color */
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.saved-recipe-item button:hover {
-    background-color: #cc0000; /* Example hover color */
-}
-
-
-
     </style>
 </head>
 <body>
-    
-    <nav>
-    <div class="logo">  
-        <i class="fa-solid fa-utensils"></i><br>
+    <div id="sidebar">
+        <div class="logo">
+            <i class="fa-solid fa-utensils"></i><br>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Recipes</a>
+            <a href="#">About</a>
+            <a href="#" class="submenu-toggle">Saved Recipes</a>
+            <div class="submenu" id="saved-recipes-submenu" >
+            </div>
+        </nav>
     </div>
-        <a href="#">Home</a>
-        <a href="#">Recipes</a>
-        <a href="#">About</a>
-    </nav>
-    <!-- <div>
-        <label for="cookingTime">Cooking Time:</label>
-        <select id="cookingTime"><option value="short">Short</option>
-            <option value="medium"> Medium</option>
-            <option value="long">Long</option></select>
-     </div>
 
-     <div>
-        <label for="difficulty">Difficulty:</label>
-        <select id="difficulty">
-            <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
-            <option value="hard">Hard</option>
-        </select>
-     </div>
+    <button class="hamburger" onclick="toggleSidebar()">
+        <i class="bi bi-list"></i>
+    </button>
 
-     <div>
-        <label for="mealType">Meal Type:</label>
-        <select id="mealType">
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
-        </select>
-     </div>
-
-            <button onclick="filterRecipes()">Apply Filters</button>
-        </div> -->
-
-    
-
-
-
-    <div class="container">
-        <div id="sidebar">
-    <h2>Saved Recipes</h2>
-    <div id="saved-recipes"></div>
-</div>
-        <h1  class="heading">Welcome to foodies deli</h1>
-        <div id="recipes">
-
+    <div class="main-content">
+        <div class="container">
+            <h1 class="heading">Welcome to foodies deli</h1>
+            <div id="sidebar">
+                <h2>Saved Recipes</h2>
+                <div id="saved-recipes"></div>
+            </div>
+            <div id="recipes"></div>
         </div>
     </div>
-<script>
-   let allRecipes = [];
-fetch('https://dummyjson.com/recipes')
-  .then(response => response.json())
-  .then(data => {
-    allRecipes = data.recipes;
-    displayRecipes(allRecipes);
-  });
 
-function displayRecipes(recipes) {
-    const recipesContainer = document.getElementById('recipes');
-    recipesContainer.innerHTML = '';
+    <script>
+        let allRecipes = [];
+        fetch('https://dummyjson.com/recipes')
+            .then(response => response.json())
+            .then(data => {
+                allRecipes = data.recipes;
+                displayRecipes(allRecipes);
+            });
 
-    recipes.forEach(recipe => {
-      const card = document.createElement('div');
-      card.classList.add('recipe-card');
+        function displayRecipes(recipes) {
+            const recipesContainer = document.getElementById('recipes');
+            recipesContainer.innerHTML = '';
 
-      const image = document.createElement('img');
-      image.src = recipe.image;
-      card.appendChild(image);
+            recipes.forEach(recipe => {
+                const card = document.createElement('div');
+                card.classList.add('recipe-card');
 
-      const name = document.createElement('h2');
-      name.textContent = recipe.name;
-      card.appendChild(name);
+                const image = document.createElement('img');
+                image.src = recipe.image;
+                card.appendChild(image);
 
-      const difficulty = document.createElement('p');
-      difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
-      card.appendChild(difficulty);
+                const name = document.createElement('h2');
+                name.textContent = recipe.name;
+                card.appendChild(name);
 
-      const ratingStars = document.createElement('p');
-      ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
-      card.appendChild(ratingStars);
-    
-      const readMoreBtn = document.createElement('button');
-      readMoreBtn.textContent = 'Read More';
-      readMoreBtn.addEventListener('click', () => {
-        showMoreDetails(recipe);
-      });
-      const saveBtn = document.createElement('button');
-            saveBtn.textContent = 'Save';
-            saveBtn.classList.add("saveBtn")
-            saveBtn.addEventListener('click', () => {
-            saveRecipe(recipe.id);
+                const difficulty = document.createElement('p');
+                difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
+                card.appendChild(difficulty);
 
-});
-card.appendChild(saveBtn);
-      card.appendChild(readMoreBtn);
-    
-    // function showMoreDetails(recipe) {
-    // const card = document.getElementById(`recipe-${recipe.id}`);
-    // const detailsSection = card.querySelector('.details-section');
-    // detailsSection.classList.toggle('expanded');
-    
-    // const readMoreBtn = card.querySelector('.read-more-btn');
-    // if (detailsSection.classList.contains('expanded')) {
-    //     readMoreBtn.textContent = 'Read Less';
-    // } else {
-    //     readMoreBtn.textContent = 'Read More';
+                const ratingStars = document.createElement('p');
+                ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
+                card.appendChild(ratingStars);
 
-      recipesContainer.appendChild(card);
-    });
+                const readMoreBtn = document.createElement('button'); 
+                readMoreBtn.textContent = 'Read More';
+                readMoreBtn.addEventListener('click', () => {
+                    showMoreDetails(recipe);
+                });
+                const saveBtn = document.createElement('button');
+                saveBtn.textContent = 'Save';
+                saveBtn.classList.add("saveBtn")
+                saveBtn.addEventListener('click', () => {
+                    saveRecipe(recipe.id);
+                });
+                card.appendChild(saveBtn);
+                card.appendChild(readMoreBtn);
 
+                recipesContainer.appendChild(card);
+            });
+        }
 
-}
-function showMoreDetails(recipe) {
-    alert(`Details for ${recipe.name}:
-    Ingredients: ${recipe.ingredients}
-    Instructions: ${recipe.instructions}
-    Serving: ${recipe.servings}
-    Calories per Serving: ${recipe.caloriesPerServing}`);
-}
+        function showMoreDetails(recipe) {
+            alert(`Details for ${recipe.name}:
+            Ingredients: ${recipe.ingredients}
+            Instructions: ${recipe.instructions}
+            Serving: ${recipe.servings}
+            Calories per Serving: ${recipe.caloriesPerServing}`);
+        }
 
-function getStars(rating) {
-  const roundedRating = Math.round(rating); 
-  const stars = '⭐'.repeat(roundedRating);
-  return stars;
-}
+        function getStars(rating) {
+            const roundedRating = Math.round(rating);
+            const stars = '⭐'.
+repeat(roundedRating);
+            return stars;
+        }
 
+        function saveRecipe(recipeId) {
+            const recipe = allRecipes.find(recipe => recipe.id === recipeId);
+            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
 
-function saveRecipe(recipeId) {
-    // Find the recipe in allRecipes array by its id
-    const recipe = allRecipes.find(recipe => recipe.id === recipeId);
-    // Retrieve saved recipes from local storage or initialize an empty array
-    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-    // Check if the recipe is not already saved
-    if (!savedRecipes.some(savedRecipe => savedRecipe.id === recipe.id)) {
-        // Add the recipe to the saved recipes array
-        savedRecipes.push(recipe);
-        // Save the updated array back to local storage
-        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-        displaySavedRecipes(savedRecipes);
-    //     alert('Recipe saved!');
-    // } else {
-    //     alert('Recipe already saved!');
-    // }
-}
+            if (!savedRecipes.some(savedRecipe => savedRecipe.id === recipe.id)) {
+                savedRecipes.push(recipe);
+                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+                displaySavedRecipes(savedRecipes);
+            }
+        }
 
-}
-// Function to display saved recipes in the sidebar
-function displaySavedRecipes(savedRecipes) {
-    const savedRecipesContainer = document.getElementById('saved-recipes');
-    savedRecipesContainer.innerHTML = '';
+        function displaySavedRecipes(savedRecipes) {
+            const savedRecipesContainer = document.getElementById('saved-recipes');
+            savedRecipesContainer.innerHTML = '';
 
-    savedRecipes.forEach(savedRecipe => {
-        const recipeItem = document.createElement('div');
-        recipeItem.classList.add('saved-recipe-item');
+            savedRecipes.forEach(savedRecipe => {
+                const recipeItem = document.createElement('div');
+                recipeItem.classList.add('saved-recipe-item');
 
-        const name = document.createElement('p');
-        name.textContent = savedRecipe.name;
-        name.addEventListener("click", () =>{
-            showRecipeDetails(savedRecipe)
-        })
-        recipeItem.appendChild(name);
+                const name = document.createElement('p');
+                name.textContent = savedRecipe.name;
+                name.addEventListener("click", () => {
+                    showRecipeDetails(savedRecipe)
+                })
+                recipeItem.appendChild(name);
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => {
-            deleteSavedRecipe(savedRecipe.id);
-        });
-        recipeItem.appendChild(deleteBtn);
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.addEventListener('click', () => {
+                    deleteSavedRecipe(savedRecipe.id);
+                });
+                recipeItem.appendChild(deleteBtn);
 
-        savedRecipesContainer.appendChild(recipeItem);
-
-        // Additional details or actions can be added here
-
-        savedRecipesContainer.appendChild(recipeItem);
+                savedRecipesContainer.appendChild(recipeItem);
+            });
+        }
 
         function deleteSavedRecipe(recipeId) {
-    let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-    savedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
-    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-    displaySavedRecipes(savedRecipes)
-    }});
-}
+            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            savedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
+            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+            displaySavedRecipes(savedRecipes)
+        }
 
-// Call this function whenever the page loads to display saved recipes from local storage
-function loadSavedRecipes() {
-    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-    displaySavedRecipes(savedRecipes);
-}
+        function loadSavedRecipes() {
+            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            displaySavedRecipes(savedRecipes);
+        }
 
-loadSavedRecipes(); // Call the function when the page loads
+        loadSavedRecipes();
 
-function showRecipeDetails(recipe) {
-    alert(`Details for ${recipe.name}:
-    Ingredients: ${recipe.ingredients}
-    Instructions: ${recipe.instructions}
-    Serving: ${recipe.servings}
-    Calories per Serving: ${recipe.caloriesPerServing}`);
-}
+        function showRecipeDetails(recipe) {
+            alert(`Details for ${recipe.name}:
+            Ingredients: ${recipe.ingredients}
+            Instructions: ${recipe.instructions}
+            Serving: ${recipe.servings}
+            Calories per Serving: ${recipe.caloriesPerServing}`);
+        }
 
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('sidebar-open');
+            mainContent.classList.toggle('sidebar-open');
+        }
 
+        // Get all submenu toggles
+const submenuToggles = document.querySelectorAll('.submenu-toggle');
 
-</script>
+// Add click event listener to each submenu toggle
+submenuToggles.forEach(toggle => {
+    toggle.addEventListener('click', function() {
+        // Toggle the 'active' class of the corresponding submenu
+        const submenu = toggle.nextElementSibling;
+        submenu.classList.toggle('active');
+    });
+});
+    </script>
 </body>
 </html>
