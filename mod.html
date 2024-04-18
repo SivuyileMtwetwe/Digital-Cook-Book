@@ -107,6 +107,12 @@
             padding: 20px;
             transition: left 0.3s ease;
             z-index: 100%;
+            overflow-y: auto;
+        }
+        
+        #saved-recipes-submenu{
+            max-height: calc(100% - 60px);
+            overflow-y: auto;
         }
 
         #sidebar nav {
@@ -154,7 +160,7 @@
         .saved-recipe-item button {
             margin-left: 10px;
             background-color: #ff0000;
-            color: #ffffff;
+            color: #ffffff;  
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
@@ -206,145 +212,226 @@
 
     <script>
         let allRecipes = [];
-        fetch('https://dummyjson.com/recipes')
-            .then(response => response.json())
-            .then(data => {
-                allRecipes = data.recipes;
-                displayRecipes(allRecipes);
-            });
 
-        function displayRecipes(recipes) {
-            const recipesContainer = document.getElementById('recipes');
-            recipesContainer.innerHTML = '';
+// Fetch recipes and display them initially
+fetch('https://dummyjson.com/recipes')
+    .then(response => response.json())
+    .then(data => {
+        allRecipes = data.recipes;
+        displayRecipes(allRecipes);
+    });
 
-            recipes.forEach(recipe => {
-                const card = document.createElement('div');
-                card.classList.add('recipe-card');
+// Function to display recipes
+function displayRecipes(recipes) {
+    const recipesContainer = document.getElementById('recipes');
+    recipesContainer.innerHTML = '';
 
-                const image = document.createElement('img');
-                image.src = recipe.image;
-                card.appendChild(image);
+    recipes.forEach(recipe => {
+        const card = createRecipeCard(recipe);
+        recipesContainer.appendChild(card);
+    });
+}
 
-                const name = document.createElement('h2');
-                name.textContent = recipe.name;
-                card.appendChild(name);
+// Function to create a recipe card
+function createRecipeCard(recipe) {
+    const card = document.createElement('div');
+    card.classList.add('recipe-card');
 
-                const difficulty = document.createElement('p');
-                difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
-                card.appendChild(difficulty);
+    const image = document.createElement('img');
+    image.src = recipe.image;
+    card.appendChild(image);
 
-                const ratingStars = document.createElement('p');
-                ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
-                card.appendChild(ratingStars);
+    const name = document.createElement('h2');
+    name.textContent = recipe.name;
+    card.appendChild(name);
 
-                const readMoreBtn = document.createElement('button'); 
-                readMoreBtn.textContent = 'Read More';
-                readMoreBtn.addEventListener('click', () => {
-                    showMoreDetails(recipe);
-                });
-                const saveBtn = document.createElement('button');
-                saveBtn.textContent = 'Save';
-                saveBtn.classList.add("saveBtn")
-                saveBtn.addEventListener('click', () => {
-                    saveRecipe(recipe.id);
-                });
-                card.appendChild(saveBtn);
-                card.appendChild(readMoreBtn);
+    const difficulty = document.createElement('p');
+    difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
+    card.appendChild(difficulty);
 
-                recipesContainer.appendChild(card);
-            });
-        }
+    const ratingStars = document.createElement('p');
+    ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
+    card.appendChild(ratingStars);
 
-        function showMoreDetails(recipe) {
-            alert(`Details for ${recipe.name}:
-            Ingredients: ${recipe.ingredients}
-            Instructions: ${recipe.instructions}
-            Serving: ${recipe.servings}
-            Calories per Serving: ${recipe.caloriesPerServing}`);
-        }
+    const readMoreBtn = document.createElement('button');
+    readMoreBtn.textContent = 'Read More';
+    readMoreBtn.addEventListener('click', () => {
+        showMoreDetails(recipe);
+    });
+    card.appendChild(readMoreBtn);
 
-        function getStars(rating) {
-            const roundedRating = Math.round(rating);
-            const stars = '⭐'.
-repeat(roundedRating);
-            return stars;
-        }
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.classList.add('saveBtn');
+    saveBtn.addEventListener('click', () => {
+        saveRecipe(recipe.id);
+    });
+    card.appendChild(saveBtn);
 
-        function saveRecipe(recipeId) {
-            const recipe = allRecipes.find(recipe => recipe.id === recipeId);
-            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    return card;
+}
 
-            if (!savedRecipes.some(savedRecipe => savedRecipe.id === recipe.id)) {
-                savedRecipes.push(recipe);
-                localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-                displaySavedRecipes(savedRecipes);
-            }
-        }
 
-        function displaySavedRecipes(savedRecipes) {
-            const savedRecipesContainer = document.getElementById('saved-recipes');
-            savedRecipesContainer.innerHTML = '';
+function showMoreDetails(recipe) {
+    alert(`Details for ${recipe.name}:
+        Ingredients: ${recipe.ingredients}
+        Instructions: ${recipe.instructions}
+        Serving: ${recipe.servings}
+        Calories per Serving: ${recipe.caloriesPerServing}`);
+}
 
-            savedRecipes.forEach(savedRecipe => {
-                const recipeItem = document.createElement('div');
-                recipeItem.classList.add('saved-recipe-item');
+function getStars(rating) {
+    const roundedRating = Math.round(rating);
+    const stars = '⭐'.repeat(roundedRating);
+    return stars;
+}
 
-                const name = document.createElement('p');
-                name.textContent = savedRecipe.name;
-                name.addEventListener("click", () => {
-                    showRecipeDetails(savedRecipe)
-                })
-                recipeItem.appendChild(name);
+function saveRecipe(recipeId) {
+    const recipe = allRecipes.find(recipe => recipe.id === recipeId);
+    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
 
-                const deleteBtn = document.createElement('button');
-                deleteBtn.textContent = 'Delete';
-                deleteBtn.addEventListener('click', () => {
-                    deleteSavedRecipe(savedRecipe.id);
-                });
-                recipeItem.appendChild(deleteBtn);
+    if (!savedRecipes.some(savedRecipe => savedRecipe.id === recipe.id)) {
+        savedRecipes.push(recipe);
+        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+        displaySavedRecipes(savedRecipes);
+    }
+}
 
-                savedRecipesContainer.appendChild(recipeItem);
-            });
-        }
+// Function to display saved recipes
+function displaySavedRecipes(savedRecipes) {
+    const savedRecipesContainer = document.getElementById('saved-recipes');
+    savedRecipesContainer.innerHTML = '';
 
-        function deleteSavedRecipe(recipeId) {
-            let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-            savedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
-            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-            displaySavedRecipes(savedRecipes)
-        }
+    savedRecipes.forEach(savedRecipe => {
+        const recipeItem = document.createElement('div');
+        recipeItem.classList.add('saved-recipe-item');
 
-        function loadSavedRecipes() {
-            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-            displaySavedRecipes(savedRecipes);
-        }
+        const name = document.createElement('p');
+        name.textContent = savedRecipe.name;
+        name.addEventListener('click', () => {
+            showRecipeDetails(savedRecipe);
+        });
+        recipeItem.appendChild(name);
 
-        loadSavedRecipes();
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => {
+            deleteSavedRecipe(savedRecipe.id);
+        });
+        recipeItem.appendChild(deleteBtn);
 
-        function showRecipeDetails(recipe) {
-            alert(`Details for ${recipe.name}:
-            Ingredients: ${recipe.ingredients}
-            Instructions: ${recipe.instructions}
-            Serving: ${recipe.servings}
-            Calories per Serving: ${recipe.caloriesPerServing}`);
-        }
+        savedRecipesContainer.appendChild(recipeItem);
+    });
+}
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.querySelector('.main-content');
-            sidebar.classList.toggle('sidebar-open');
-            mainContent.classList.toggle('sidebar-open');
-        }
+// Function to delete a saved recipe
+function deleteSavedRecipe(recipeId) {
+    let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    savedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
+    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+    displaySavedRecipes(savedRecipes);
+}
 
-        // Get all submenu toggles
+// Function to load saved recipes when the page loads
+function loadSavedRecipes() {
+    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+    displaySavedRecipes(savedRecipes);
+}
+
+// Function to show recipe details
+function showRecipeDetails(recipe) {
+    alert(`Details for ${recipe.name}:
+        Ingredients: ${recipe.ingredients}
+        Instructions: ${recipe.instructions}
+        Serving: ${recipe.servings}
+        Calories per Serving: ${recipe.caloriesPerServing}`);
+}
+
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('.main-content');
+    sidebar.classList.toggle('sidebar-open');
+    mainContent.classList.toggle('sidebar-open');
+}
+
+
+// const submenuToggles = document.querySelectorAll('.submenu-toggle');
+// submenuToggles.forEach(toggle => {
+//     toggle.addEventListener('click', function() {
+//         const submenu = toggle.nextElementSibling;
+//         submenu.classList.toggle('active');
+//     });
+// });
+
+
+loadSavedRecipes();
+
+function displaySavedRecipesAccordion(savedRecipes) {
+    const savedRecipesContainer = document.getElementById('saved-recipes-submenu');
+    savedRecipesContainer.innerHTML = '';
+
+    const accordion = document.createElement('div');
+    accordion.classList.add('accordion');
+
+    savedRecipes.forEach(savedRecipe => {
+        const accordionItem = document.createElement('div');
+        accordionItem.classList.add('accordion-item');
+
+        const accordionHeader = document.createElement('div');
+        accordionHeader.classList.add('accordion-header');
+        accordionHeader.innerHTML = `
+            <h2 class="accordion-title">${savedRecipe.name}</h2>
+        `;
+        accordionItem.appendChild(accordionHeader);
+
+        const accordionContent = document.createElement('div');
+        accordionContent.classList.add('accordion-content');
+        accordionContent.innerHTML = `
+            <p>Ingredients: ${savedRecipe.ingredients}</p>
+            <p>Instructions: ${savedRecipe.instructions}</p>
+            <p>Serving: ${savedRecipe.servings}</p>
+            <p>Calories per Serving: ${savedRecipe.caloriesPerServing}</p>
+        `;
+        accordionItem.appendChild(accordionContent);
+
+        accordion.appendChild(accordionItem);
+    });
+
+    savedRecipesContainer.appendChild(accordion);
+}
+
+const accordionButtons = document.querySelectorAll('.accordion-button');
+    accordionButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const accordionContent = button.nextElementSibling;
+            accordionContent.classList.toggle('active');
+        });
+    });
+
+    
+// Function to toggle the accordion content
+function toggleAccordionContent(accordionItem) {
+    accordionItem.classList.toggle('active');
+}
+
+// Add event listener to submenu toggles
 const submenuToggles = document.querySelectorAll('.submenu-toggle');
-
-// Add click event listener to each submenu toggle
 submenuToggles.forEach(toggle => {
     toggle.addEventListener('click', function() {
-        // Toggle the 'active' class of the corresponding submenu
         const submenu = toggle.nextElementSibling;
         submenu.classList.toggle('active');
+        if (submenu.classList.contains('active')) {
+            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+            displaySavedRecipesAccordion(savedRecipes);
+            const accordionButtons = document.querySelectorAll('.accordion-button');
+            accordionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const accordionItem = button.parentElement.parentElement;
+                    toggleAccordionContent(accordionItem);
+                });
+            });
+        }
     });
 });
     </script>
