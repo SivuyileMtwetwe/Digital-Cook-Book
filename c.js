@@ -1,3 +1,7 @@
+// const vids = require("./vidz.json");
+// console.clear()
+// // console.log(vids.recipies)
+
 let allRecipes = [];
 fetch('https://dummyjson.com/recipes')
     .then(response => response.json())
@@ -19,7 +23,7 @@ function displayRecipes(recipes) {
 function createRecipeCard(recipe) {
     const card = document.createElement('div');
     card.classList.add('recipe-card');
-
+  // console.log(vidz)
     const image = document.createElement('img');
     image.src = recipe.image;
     card.appendChild(image);
