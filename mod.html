@@ -189,9 +189,6 @@
             <a href="#">Home</a>
             <a href="#">Recipes</a>
             <a href="#">About</a>
-            <!-- <a href="#" class="submenu-toggle">Saved Recipes</a> -->
-            <!-- <div class="submenu" id="saved-recipes-submenu" >
-            </div> -->
         </nav>
     </div>
 
@@ -212,8 +209,6 @@
 
     <script>
         let allRecipes = [];
-
-// Fetch recipes and display them initially
 fetch('https://dummyjson.com/recipes')
     .then(response => response.json())
     .then(data => {
@@ -221,7 +216,6 @@ fetch('https://dummyjson.com/recipes')
         displayRecipes(allRecipes);
     });
 
-// Function to display recipes
 function displayRecipes(recipes) {
     const recipesContainer = document.getElementById('recipes');
     recipesContainer.innerHTML = '';
@@ -232,7 +226,6 @@ function displayRecipes(recipes) {
     });
 }
 
-// Function to create a recipe card
 function createRecipeCard(recipe) {
     const card = document.createElement('div');
     card.classList.add('recipe-card');
@@ -297,7 +290,7 @@ function saveRecipe(recipeId) {
     }
 }
 
-// Function to display saved recipes
+
 function displaySavedRecipes(savedRecipes) {
     const savedRecipesContainer = document.getElementById('saved-recipes');
     savedRecipesContainer.innerHTML = '';
@@ -324,7 +317,6 @@ function displaySavedRecipes(savedRecipes) {
     });
 }
 
-// Function to delete a saved recipe
 function deleteSavedRecipe(recipeId) {
     let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
     savedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
@@ -332,13 +324,12 @@ function deleteSavedRecipe(recipeId) {
     displaySavedRecipes(savedRecipes);
 }
 
-// Function to load saved recipes when the page loads
+
 function loadSavedRecipes() {
     const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
     displaySavedRecipes(savedRecipes);
 }
 
-// Function to show recipe details
 function showRecipeDetails(recipe) {
     alert(`Details for ${recipe.name}:
         Ingredients: ${recipe.ingredients}
@@ -356,84 +347,9 @@ function toggleSidebar() {
 }
 
 
-// const submenuToggles = document.querySelectorAll('.submenu-toggle');
-// submenuToggles.forEach(toggle => {
-//     toggle.addEventListener('click', function() {
-//         const submenu = toggle.nextElementSibling;
-//         submenu.classList.toggle('active');
-//     });
-// });
-
 
 loadSavedRecipes();
 
-function displaySavedRecipesAccordion(savedRecipes) {
-    const savedRecipesContainer = document.getElementById('saved-recipes-submenu');
-    savedRecipesContainer.innerHTML = '';
-
-    const accordion = document.createElement('div');
-    accordion.classList.add('accordion');
-
-    savedRecipes.forEach(savedRecipe => {
-        const accordionItem = document.createElement('div');
-        accordionItem.classList.add('accordion-item');
-
-        const accordionHeader = document.createElement('div');
-        accordionHeader.classList.add('accordion-header');
-        accordionHeader.innerHTML = `
-            <h2 class="accordion-title">${savedRecipe.name}</h2>
-        `;
-        accordionItem.appendChild(accordionHeader);
-
-        const accordionContent = document.createElement('div');
-        accordionContent.classList.add('accordion-content');
-        accordionContent.innerHTML = `
-            <p>Ingredients: ${savedRecipe.ingredients}</p>
-            <p>Instructions: ${savedRecipe.instructions}</p> 
-            <p>Serving: ${savedRecipe.servings}</p>
-            <p>Calories per Serving: ${savedRecipe.caloriesPerServing}</p>
-        `;
-        accordionItem.appendChild(accordionContent);
-
-        accordion.appendChild(accordionItem);
-    });
-
-    savedRecipesContainer.appendChild(accordion);
-}
-
-const accordionButtons = document.querySelectorAll('.accordion-button');
-    accordionButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const accordionContent = button.nextElementSibling;
-            accordionContent.classList.toggle('active');
-        });
-    });
-
-    
-// Function to toggle the accordion content
-function toggleAccordionContent(accordionItem) {
-    accordionItem.classList.toggle('active');
-}
-
-// Add event listener to submenu toggles
-const submenuToggles = document.querySelectorAll('.submenu-toggle');
-submenuToggles.forEach(toggle => {
-    toggle.addEventListener('click', function() {
-        const submenu = toggle.nextElementSibling;
-        submenu.classList.toggle('active');
-        if (submenu.classList.contains('active')) {
-            const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-            displaySavedRecipesAccordion(savedRecipes);
-            const accordionButtons = document.querySelectorAll('.accordion-button');
-            accordionButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const accordionItem = button.parentElement.parentElement;
-                    toggleAccordionContent(accordionItem);
-                });
-            });
-        }
-    });
-});
     </script>
 </body>
 </html>

@@ -1,58 +1,172 @@
-
 nav {
-    background-color:brown;
-    color: rgb(252, 192, 83);
-    padding: 10px 20px;
+    background-color: brown;
+    color: rgb(202, 137, 16);
+    padding: 12px;
     text-align: center;
+    margin: -20px;
+}
+
+.logo {
+    color: rgb(202, 137, 16);
+    margin-right: 0px;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 nav a {
-    color: rgb(252, 192, 83);
+    color: rgb(202, 137, 16);
     text-decoration: none;
-    margin: 0 10px;
+    margin: 0 20px;
 }
 
-
 .container {
-padding: 20px;
-display: flex;
-flex-direction: column;
-align-items: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    padding: 20px;
 }
 
 .heading {
-text-align: center;
-margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+button {
+    border-radius: 20px;
+    color: rgb(202, 137, 16);
+    background-color: brown;
+    margin-left: 100px;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.saveBtn {
+    border-radius: 20px;
+    color: rgb(202, 137, 16);
+    background-color: brown;
+    margin-left: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 
 #recipes {
-display: flex;
-flex-wrap: wrap;
-justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .recipe-card {
-width: 300px;
-margin: 10px;
-border-radius: 5px;
-box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-overflow: hidden;
-border: 1px solid brown;
-background-color: rgb(252, 192, 83);
-border-radius: 5px;
+    width: 300px;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: 1px solid brown;
+    background-color: rgb(202, 137, 16);
+    border-radius: 5px;
 }
 
 .recipe-card img {
-width: 100%;
-height: 200px;
-object-fit: cover;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
 
 .recipe-card h3 {
-padding: 15px 10px;
-font-size: 18px;
+    padding: 15px 10px;
+    font-size: 18px;
 }
 
 .recipe-card p {
-padding: 10px;
+    padding: 10px;
+}
+
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    right: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 100%;
+    overflow-y: auto;
+}
+
+#saved-recipes-submenu{
+    max-height: calc(100% - 60px);
+    overflow-y: auto;
+}
+
+#sidebar nav {
+    margin-top: 20px;
+}
+
+#sidebar a {
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #333;
+}
+
+.hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.hamburger i {
+    font-size: 24px;
+}
+
+.main-context {
+    margin-left: 0;
+    transition: margin-left 0.3s ease;
+}
+
+.sidebar-open {
+    margin-left: 250px;
+}
+
+#sidebar h2 {
+    margin-bottom: 10px;
+}
+
+#saved-recipes {
+    /* Additional styles for saved recipes container */
+}
+
+.saved-recipe-item button {
+    margin-left: 10px;
+    background-color: #ff0000;
+    color: #ffffff;  
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.saved-recipe-item button:hover {
+    background-color: #cc0000;
+}
+
+.submenu {
+display: none;
+}
+
+.submenu.active {
+display: block;
 }
