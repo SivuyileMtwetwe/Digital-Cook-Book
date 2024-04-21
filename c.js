@@ -1,145 +1,102 @@
-// const vids = require("./vidz.json");
-// console.clear()
-// // console.log(vids.recipies)
+document.addEventListener("DOMContentLoaded", function() {
+    // Fetch recipes from the API
+    const url = 'https://dummyjson.com/recipes';
+    let allRecipes = [];
 
-let allRecipes = [];
-fetch('https://dummyjson.com/recipes')
-    .then(response => response.json())
-    .then(data => {
-        allRecipes = data.recipes;
-        displayRecipes(allRecipes);
-    });
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            allRecipes = data.recipes;
+            displayRecipes(allRecipes);
+        });
 
-function displayRecipes(recipes) {
-    const recipesContainer = document.getElementById('recipes');
-    recipesContainer.innerHTML = '';
+    // Display recipes on the page
+    function displayRecipes(recipes) {
+        const recipesContainer = document.getElementById('recipes');
+        recipesContainer.innerHTML = '';
 
-    recipes.forEach(recipe => {
-        const card = createRecipeCard(recipe);
-        recipesContainer.appendChild(card);
-    });
-}
-
-function createRecipeCard(recipe) {
-    const card = document.createElement('div');
-    card.classList.add('recipe-card');
-  // console.log(vidz)
-    const image = document.createElement('img');
-    image.src = recipe.image;
-    card.appendChild(image);
-
-    const name = document.createElement('h2');
-    name.textContent = recipe.name;
-    card.appendChild(name);
-
-    const difficulty = document.createElement('p');
-    difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
-    card.appendChild(difficulty);
-
-    const ratingStars = document.createElement('p');
-    ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
-    card.appendChild(ratingStars);
-
-    const readMoreBtn = document.createElement('button');
-    readMoreBtn.textContent = 'Read More';
-    readMoreBtn.addEventListener('click', () => {
-        showMoreDetails(recipe);
-    });
-    card.appendChild(readMoreBtn);
-
-    const saveBtn = document.createElement('button');
-    saveBtn.textContent = 'Save';
-    saveBtn.classList.add('saveBtn');
-    saveBtn.addEventListener('click', () => {
-        saveRecipe(recipe.id);
-    });
-    card.appendChild(saveBtn);
-
-    return card;
-}
-
-
-function showMoreDetails(recipe) {
-    alert(`Details for ${recipe.name}:
-        Ingredients: ${recipe.ingredients}
-        Instructions: ${recipe.instructions}
-        Serving: ${recipe.servings}
-        Calories per Serving: ${recipe.caloriesPerServing}`);
-}
-
-function getStars(rating) {
-    const roundedRating = Math.round(rating);
-    const stars = '⭐'.repeat(roundedRating);
-    return stars;
-}
-
-function saveRecipe(recipeId) {
-    const recipe = allRecipes.find(recipe => recipe.id === recipeId);
-    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-
-    if (!savedRecipes.some(savedRecipe => savedRecipe.id === recipe.id)) {
-        savedRecipes.push(recipe);
-        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-        displaySavedRecipes(savedRecipes);
+        recipes.forEach(recipe => {
+            const card = createRecipeCard(recipe);
+            recipesContainer.appendChild(card);
+        });
     }
-}
 
+    // Create a recipe card element
+    function createRecipeCard(recipe) {
+        const card = document.createElement('div');
+        card.classList.add('recipe-card');
 
-function displaySavedRecipes(savedRecipes) {
-    const savedRecipesContainer = document.getElementById('saved-recipes');
-    savedRecipesContainer.innerHTML = '';
+        const image = document.createElement('img');
+        image.src = recipe.image;
+        card.appendChild(image);
 
-    savedRecipes.forEach(savedRecipe => {
-        const recipeItem = document.createElement('div');
-        recipeItem.classList.add('saved-recipe-item');
+        const name = document.createElement('h2');
+        name.textContent = recipe.name;
+        card.appendChild(name);
 
-        const name = document.createElement('p');
-        name.textContent = savedRecipe.name;
-        name.addEventListener('click', () => {
-            showRecipeDetails(savedRecipe);
+        const difficulty = document.createElement('p');
+        difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
+        card.appendChild(difficulty);
+
+        const ratingStars = document.createElement('p');
+        ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
+        card.appendChild(ratingStars);
+
+        const readMoreBtn = document.createElement('button');
+        readMoreBtn.textContent = 'Read More';
+        readMoreBtn.addEventListener('click', () => {
+            showMoreDetails(recipe);
         });
-        recipeItem.appendChild(name);
+        card.appendChild(readMoreBtn);
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => {
-            deleteSavedRecipe(savedRecipe.id);
-        });
-        recipeItem.appendChild(deleteBtn);
+        
 
-        savedRecipesContainer.appendChild(recipeItem);
+        return card;
+    }
+
+    // Show more details modal
+    function showMoreDetails(recipe) {
+        const modal = document.getElementById('myModal');
+        const modalContent = document.getElementById('modal-content');
+        modal.style.display = "block";
+        modalContent.innerHTML = `
+            <h2>${recipe.name}</h2>
+            <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+            <p><strong>Instructions:</strong> ${recipe.instructions}</p>
+            <p><strong>Serving:</strong> ${recipe.servings}</p>
+            <p><strong>Calories per Serving:</strong> ${recipe.caloriesPerServing}</p>
+        `;
+    }
+
+    // Close modal
+    const closeModalBtn = document.getElementsByClassName('close')[0];
+    const modal = document.getElementById('myModal');
+
+    closeModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
     });
-}
 
-function deleteSavedRecipe(recipeId) {
-    let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-    savedRecipes = savedRecipes.filter(recipe => recipe.id !== recipeId);
-    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-    displaySavedRecipes(savedRecipes);
-}
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 
+    // Function to get star ratings
+    function getStars(rating) {
+        const roundedRating = Math.round(rating);
+        const stars = '⭐'.repeat(roundedRating);
+        return stars;
+    }
 
-function loadSavedRecipes() {
-    const savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-    displaySavedRecipes(savedRecipes);
-}
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
 
-function showRecipeDetails(recipe) {
-    alert(`Details for ${recipe.name}:
-        Ingredients: ${recipe.ingredients}
-        Instructions: ${recipe.instructions}
-        Serving: ${recipe.servings}
-        Calories per Serving: ${recipe.caloriesPerServing}`);
-}
-
-
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.querySelector('.main-content');
-    sidebar.classList.toggle('sidebar-open');
-    mainContent.classList.toggle('sidebar-open');
-}
-
-
-
-loadSavedRecipes();
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredRecipes = allRecipes.filter(recipe => {
+            return recipe.name.toLowerCase().includes(searchTerm);
+        });
+        displayRecipes(filteredRecipes);
+    });
+});

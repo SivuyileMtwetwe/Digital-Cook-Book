@@ -9,29 +9,54 @@
     <link rel="stylesheet" href="/b.css">
 </head>
 <body>
-    <div id="">
-        <div class="logo">
-            <i class="fa-solid fa-utensils"></i><br>
-        </div>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Recipes</a>
-            <a href="#">About</a>
-        </nav>
-    </div>
-
-    <button class="hamburger" onclick="toggleSidebar()">
-        <i class="bi bi-list"></i>
-    </button>
-
-    <div class="main-content">
+    <!-- Start of Navbar -->
+    <nav>
         <div class="container">
-            <h1 class="heading">Welcome to foodies deli</h1>
-            <div id="sidebar">
-                <h2>Favourites</h2>
-                <div id="saved-recipes"></div>
+            <a class="navbar-brand" href="#"><img src="./images/Apple Watch 40mm - 1 (1).png" alt="logo"></a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#recipes">Recipes</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+            </ul>
+            <form id="searchForm" class="d-flex">
+                <input id="searchInput" type="search" placeholder="Search" aria-label="Search">
+                
+            </form>
+            <button id="favouritesBtn">Favourites <span id="unreadMessages">0</span></button>
+        </div>
+    </nav>
+    <!-- End of Navbar -->
+
+    <section class="landing-section">
+        <!-- Banner start-->
+        <div class="banner">
+            <div class="container">
+                <h1 class="heading">Welcome to food deli</h1>
+                <div class="btn-group">
+                    <label>
+                        <input type="radio" name="mealType" value="breakfast" checked>
+                        Breakfast
+                    </label>
+                    <label>
+                        <input type="radio" name="mealType" value="lunch">
+                        Lunch
+                    </label>
+                    <label>
+                        <input type="radio" name="mealType" value="dinner">
+                        Dinner
+                    </label>
+                </div>
             </div>
-            <div id="recipes"></div>
+        </div>
+        <!-- Banner End -->
+    </section>
+
+    <div id="recipes"></div>  
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-content"></div>
         </div>
     </div>
 
