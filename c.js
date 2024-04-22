@@ -1,16 +1,28 @@
-document.addEventListener("DOMContentLoaded", function() {
-    // Fetch recipes from the API
-    const url = 'https://dummyjson.com/recipes';
+document.addEventListener("DOMContentLoaded", function () {
+    const recipesUrl = 'https://dummyjson.com/recipes';
+    const youtubeUrl = 'vidz.json';
     let allRecipes = [];
-    let favorites = []; // Array to store favorite recipes
-    let currentView = 'all'; // Track the current view ('all' or 'favorites')
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Load favorites from localStorage
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            allRecipes = data.recipes;
+    Promise.all([
+        fetch(recipesUrl).then(response => response.json()),
+        fetch(youtubeUrl).then(response => response.json())
+    ])
+        .then(([recipesData, youtubeData]) => {
+            allRecipes = recipesData.recipes.map((recipe, index) => {
+                recipe.youtubeLink = youtubeData.recipes[index].link;
+                return recipe;
+            });
             displayRecipes(allRecipes);
         });
+
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredRecipes = allRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
+        displayRecipes(filteredRecipes);
+    });
 
     // Display recipes on the page
     function displayRecipes(recipes) {
@@ -51,16 +63,34 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         card.appendChild(readMoreBtn);
 
-        // Favorite button
-        const favoriteBtn = document.createElement('button');
-        favoriteBtn.textContent = 'Favorite';
-        favoriteBtn.addEventListener('click', () => {
-            addToFavorites(recipe);
-        });
-        card.appendChild(favoriteBtn);
+        if (!favorites.includes(recipe)) {
+            // Favorite button
+            const favoriteBtn = document.createElement('button');
+            favoriteBtn.textContent = 'Favorite';
+            favoriteBtn.addEventListener('click', () => {
+                addToFavorites(recipe);
+            });
+            card.appendChild(favoriteBtn);
+        } else {
+            // Delete button for favorite recipes
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.addEventListener('click', () => {
+                removeFromFavorites(recipe.name);
+            });
+            card.appendChild(deleteBtn);
+        }
+
+        // YouTube link button
+        const youtubeLink = document.createElement('a');
+        youtubeLink.textContent = 'Watch on YouTube';
+        youtubeLink.href = recipe.youtubeLink;
+        youtubeLink.target = '_blank';
+        card.appendChild(youtubeLink);
 
         return card;
     }
+
 
     // Show more details modal
     function showMoreDetails(recipe) {
@@ -99,12 +129,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to add recipe to favorites
     function addToFavorites(recipe) {
-        // Check if the recipe already exists in favorites
-        const isAlreadyFavorite = favorites.some(favRecipe => favRecipe.name === recipe.name);
-        if (!isAlreadyFavorite) {
-            favorites.push(recipe);
-            updateFavoritesNav();
-        }
+        if (!favorites.includes(recipe)){
+        favorites.push(recipe);
+        updateFavoritesNav();
+        saveFavoritesToLocalStorage();
+    }}
+
+    // Function to delete a recipe from favorites
+    function removeFromFavorites(recipeName) {
+        favorites = favorites.filter(recipe => recipe.name !== recipeName);
+        updateFavoritesNav();
+        saveFavoritesToLocalStorage();
+        displayRecipes(favorites);
     }
 
     // Update favorites in navigation bar
@@ -113,87 +149,14 @@ document.addEventListener("DOMContentLoaded", function() {
         favoritesNav.textContent = `Favorites (${favorites.length})`;
     }
 
-    // Render favorites when "Favorites" link is clicked
+    // Function to save favorites to localStorage
+    function saveFavoritesToLocalStorage() {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+
+    // Event listener for clicking on the Favorites link
     const favoritesNav = document.getElementById('favorites');
     favoritesNav.addEventListener('click', () => {
-        renderFavorites();
+        displayRecipes(favorites);
     });
-
-    // Render all recipes when "Recipes" link is clicked
-    const recipesNav = document.getElementById('recipesNav');
-    recipesNav.addEventListener('click', () => {
-        renderAllRecipes();
-    });
-
-    // Function to render saved favorites
-   // Function to render saved favorites
-function renderFavorites() {
-    currentView = 'favorites';
-    const recipesContainer = document.getElementById('recipes');
-    recipesContainer.innerHTML = '';
-
-    favorites.forEach(recipe => {
-        const card = createRecipeCard(recipe, true); // Pass true to indicate this is in favorites view
-        recipesContainer.appendChild(card);
-    });
-}
-
-// Create a recipe card element
-function createRecipeCard(recipe, isInFavorites) {
-    const card = document.createElement('div');
-    card.classList.add('recipe-card');
-
-    const image = document.createElement('img');
-    image.src = recipe.image;
-    card.appendChild(image);
-
-    const name = document.createElement('h2');
-    name.textContent = recipe.name;
-    card.appendChild(name);
-
-    const difficulty = document.createElement('p');
-    difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
-    card.appendChild(difficulty);
-
-    const ratingStars = document.createElement('p');
-    ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
-    card.appendChild(ratingStars);
-
-    const readMoreBtn = document.createElement('button');
-    readMoreBtn.textContent = 'Read More';
-    readMoreBtn.addEventListener('click', () => {
-        showMoreDetails(recipe);
-    });
-    card.appendChild(readMoreBtn);
-
-    // Favorite button
-    const favoriteBtn = document.createElement('button');
-    favoriteBtn.textContent = 'Favorite';
-    favoriteBtn.addEventListener('click', () => {
-        if (!isInFavorites) {
-            addToFavorites(recipe);
-        }
-    });
-    card.appendChild(favoriteBtn);
-
-    // Delete button (only when in favorites view)
-    if (isInFavorites) {
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.addEventListener('click', () => {
-            removeFromFavorites(recipe);
-        });
-        card.appendChild(deleteBtn);
-    }
-
-    return card;
-}
-
-// Function to remove recipe from favorites
-function removeFromFavorites(recipe) {
-    favorites = favorites.filter(favRecipe => favRecipe.name !== recipe.name);
-    updateFavoritesNav();
-    if (currentView === 'favorites') {
-        renderFavorites();
-    }
-}})
+});
