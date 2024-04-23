@@ -6,355 +6,686 @@
     <title>Recipe Cards</title>
     <style>
         
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 nav {
-    background-color: brown;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
+  background-color: brown;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  width: auto;
 }
 
 nav .navbar-brand img {
-    height: 50px;
+  height: 50px;
+  margin-right: 1200px;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
+  list-style: none;
+  display: flex;
+  justify-content: center;
 }
 
 nav ul li {
-    margin: 0 20px;
+  margin: 0 20px;
 }
 
 nav ul li a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .container {
-    padding: 20px;
+  padding: 20px;
 }
 
+.landing-section{
+  margin:20px;
+  padding:20px;
+}
 .heading {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .btn-group {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .btn-group label {
-    cursor: pointer;
-    padding: 10px 20px;
-    border: 2px solid #ffc107;
-    border-radius: 20px;
-    margin: 0 10px;
-    background-color: transparent;
-    color: #ffc107;
-    transition: all 0.3s ease;
+  cursor: pointer;
+  padding: 10px 20px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  margin: 0 10px;
+  background-color: transparent;
+  color: gray;
+  transition: all 0.3s ease;
 }
 
 .btn-group label:hover {
-    background-color: #ffc107;
-    color: white;
+  background-color: #ffc107;
+  color: white;
 }
 
 #recipes {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px;
+  padding:50px;
+  
 }
-
 .recipe-card {
-    width: calc(33.33% - 20px);
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: calc(33.33% - 20px);
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #fed998;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease; 
 }
 
+.recipe-card:hover {
+  transform: scale(1.05); 
+}
 .recipe-card img {
-    width: 100%;
-    height: 200px;
-    border-radius: 5px;
-    object-fit: cover;
+  width: 100%;
+  height: 200px;
+  border-radius: 5px;
+  object-fit: cover;
 }
 
 .recipe-card h2 {
-    margin-top: 10px;
-    font-size: 20px;
-    color: brown;
+  margin-top: 10px;
+  font-size: 20px;
+  color: black;
 }
 
 .recipe-card p {
-    margin-top: 5px;
-    color: #333;
+  margin-top: 5px;
+  color: rgb(48, 45, 45);
 }
 
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    overflow: auto;
-}
+/* .modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: auto;
+} */
 
-.modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 600px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* .modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+} */
+
+.modal-image {
+  height: 300px;
+  width: 300px;
 }
 
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .close:hover {
-    color: black;
+  color: black;
+}
+
+button,a{
+  /* border-radius: 20px;
+  margin-left: 30px;
+  margin-top: 10px; */
+  /* justify-content: center;
+  margin-bottom: 20px;
+  padding: 10px; */
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a{
+text-decoration: none;
+  padding: 10px;
+}
+
+footer{
+
+    width: 100%;
+    width: auto;
+    /* position: absolute; */
+    bottom: 0;
+    background-color: brown;
+    color: #fff;
+    padding: 100px 0 20px;
+    border-top-left-radius: 125px;
+    font-size: 15px;
+    line-height: 19px;
+    }
+    .row{
+        width: 85%;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .col{
+        flex-basis: 25px;
+        padding-left: 10%;
+    }
+    
+    .col h3{
+        width: fit-content;
+        margin-bottom: 40px;
+        position: relative;
+    
+    }
+    .col:nth-child(2) .col:nth-child(3){
+        flex-basis: 15%;
+    }
+    img .src{
+        width: 80px;
+        margin-bottom: 30px;
+    }
+    
+    ul li{
+        list-style: none;
+        margin-bottom: 12px;
+    }
+    ul li a{
+        text-decoration: none;
+        color: #fff;
+    }
+    form{
+        /* padding-bottom: 25px; */
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-bottom: 1px solid #ccc;
+        /* margin-bottom: 30px; */
+    }
+     form .far{
+        font-size: 18px;
+        /* margin-left: 10px; */
+     }
+    
+     form input{
+        width: 100%;
+        margin-right:5px;
+        margin-left:5px;
+        color: black;
+        border: 0;
+        outline: none;
+        padding: 10px;
+     }
+     form button{
+        background: transparent;
+        border: 20px;
+        outline: none;
+        cursor: pointer;
+        padding: 20px;
+     }
+     form button .fas{
+        font-size: 16px;
+        color:#ccc ;
+        line-height: 30px;
+     }
+     .social-icons .fab{
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+        text-align: center;
+        line-height: 40px;
+        font-size: 20px;
+        color: #000;
+        background: #fff;
+        margin-right: 15px;
+        cursor: pointer;
+     } 
+     .newslatter{
+        width: 80%;
+        padding: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+     margin-top: 5px;
+     margin-left: 40px;
+     }
+    
+     h3{
+        margin-right:20px;
+     }
+     hr{
+        width: 90px;
+        border: 0;
+        border-bottom: 1px solid #ccc;
+        margin: 20px auto;
+     }
+     .copyright{
+        text-align: center;
+    
+     }
+     .underline{
+        width: 100%;
+        height: 30px;
+        background: #767676;
+        border-radius: 3px;
+        position: absolute;
+        top: 25px;
+        left: 0;
+        overflow: hidden;
+     }
+     .underline span{
+        width: 15px;
+        height: 100%;
+        background: #fff;
+        border-radius: 3px;
+        position: absolute;
+        top: 0;
+        left: 10px;
+        animation: moving 2s linear infinite;
+     }
+     @keyframes moving{
+        0%{
+            left: -20px;
+        }
+        100%{
+            left: 100% ;
+        }
+     }
+    @media (max-width :700px){
+        footer{
+            bottom: unset;
+        }
+        .col{
+            flex-basis: 100%;
+        }
+        .col:nth-child(2) .col:nth-child(3){
+            flex-basis: 100%;
+        }
+    }
+    
+    
+
+.modal-title {
+  margin-bottom: 20px;
+}
+.modal-header {
+ display: flex;
+ gap: 60px;
+ padding: 20px;
+ align-items: flex-start;
+}
+
+.time-info {
+  margin: 10px;
+  display: flex-start;
+  gap: 20px;
+}
+
+.modal-btns {
+ margin-top: 30px;
 }
     </style>
 </head>
+
 <body>
-    <!-- Start of Navbar -->
-    <nav>
-        <div class="container">
-            <a class="navbar-brand" href="#"><img src="./images/Apple Watch 40mm - 1 (1).png" alt="logo"></a>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#recipes">Recipes</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#" id="favorites">Favorites</a></li>
-            </ul>
-            <form id="searchForm" class="d-flex">
-                <input id="searchInput" type="search" placeholder="Search" aria-label="Search">
-            </form>
-        </div>
-    </nav>
-    <!-- End of Navbar -->
-
-    <section class="landing-section">
-        <!-- Banner start-->
-        <div class="banner">
-            <div class="container">
-                <h1 class="heading">Welcome to food deli</h1>
-                <div class="btn-group">
-                    <label>
-                        <input type="radio" name="mealType" value="breakfast" checked>
-                        Breakfast
-                    </label>
-                    <label>
-                        <input type="radio" name="mealType" value="lunch">
-                        Lunch
-                    </label>
-                    <label>
-                        <input type="radio" name="mealType" value="dinner">
-                        Dinner
-                    </label>
-                </div>
-            </div>
-        </div>
-        <!-- Banner End -->
-    </section>
-
-    <div id="recipes"></div>
-
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modal-content"></div>
-        </div>
+  <!-- Start of Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="container" id="navbarSupportedContent">
+        <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          </li> -->
+          <li><a href="#" id="favorites">Favorites</a></li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input id="searchInput" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+      </div>
     </div>
+  </nav> 
+  <!-- End of Navbar -->
 
+  <section class="landing-section">
+      <!-- Banner start-->
+      <div class="banner" >
+          <div class="container">
+              <h1 class="heading">Welcome to food deli</h1>
+              <div class="btn-group">
+                  <label>
+                      <input type="radio" name="mealType" value="breakfast" checked>
+                      Breakfast
+                  </label>
+                  <label>
+                      <input type="radio" name="mealType" value="lunch">
+                      Lunch
+                  </label>
+                  <label>
+                      <input type="radio" name="mealType" value="dinner">
+                      Dinner
+                  </label>
+              </div>
+          </div>
+      </div>
+      <!-- Banner End -->
+  </section>
+
+  <div id="recipes"></div>
+
+  <div id="myModal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <div id="modal-content"></div>
+      </div>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const recipesUrl = 'https://dummyjson.com/recipes';
-            const youtubeUrl = 'vidz.json';
-            let allRecipes = [];
-            let favorites = JSON.parse(localStorage.getItem('favorites')) || []; // Load favorites from localStorage
-
-            Promise.all([
-                fetch(recipesUrl).then(response => response.json()),
-                fetch(youtubeUrl).then(response => response.json())
-            ])
-                .then(([recipesData, youtubeData]) => {
-                    allRecipes = recipesData.recipes.map((recipe, index) => {
-                        recipe.youtubeLink = youtubeData.recipes[index].link;
-                        return recipe;
-                    });
-                    displayRecipes(allRecipes);
-                });
-
-            const searchInput = document.getElementById('searchInput');
-
-            searchInput.addEventListener('input', () => {
-                const searchTerm = searchInput.value.toLowerCase();
-                const filteredRecipes = allRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
-                displayRecipes(filteredRecipes);
+     document.addEventListener("DOMContentLoaded", function () {
+    const recipesUrl = 'https://dummyjson.com/recipes';
+    const youtubeUrl = 'vidz.json';
+    let allRecipes = [];
+    let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  
+    Promise.all([
+        fetch(recipesUrl).then(response => response.json()),
+        fetch(youtubeUrl).then(response => response.json())
+    ])
+        .then(([recipesData, youtubeData]) => {
+            allRecipes = recipesData.recipes.map((recipe, index) => {
+                recipe.youtubeLink = youtubeData.recipes[index].link;
+                return recipe;
             });
-
-            // Display recipes on the page
-            function displayRecipes(recipes) {
-                const recipesContainer = document.getElementById('recipes');
-                recipesContainer.innerHTML = '';
-
-                recipes.forEach(recipe => {
-                    const card = createRecipeCard(recipe);
-                    recipesContainer.appendChild(card);
-                });
-            }
-
-            // Create a recipe card element
-            function createRecipeCard(recipe) {
-                const card = document.createElement('div');
-                card.classList.add('recipe-card');
-
-                const image = document.createElement('img');
-                image.src = recipe.image;
-                card.appendChild(image);
-
-                const name = document.createElement('h2');
-                name.textContent = recipe.name;
-                card.appendChild(name);
-
-                const difficulty = document.createElement('p');
-                difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
-                card.appendChild(difficulty);
-
-                const ratingStars = document.createElement('p');
-                ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
-                card.appendChild(ratingStars);
-
-                const readMoreBtn = document.createElement('button');
-                readMoreBtn.textContent = 'Read More';
-                readMoreBtn.addEventListener('click', () => {
-                    showMoreDetails(recipe);
-                });
-                card.appendChild(readMoreBtn);
-
-                if (!favorites.includes(recipe)) {
-                    // Favorite button
-                    const favoriteBtn = document.createElement('button');
-                    favoriteBtn.textContent = 'Favorite';
-                    favoriteBtn.addEventListener('click', () => {
-                        addToFavorites(recipe);
-                    });
-                    card.appendChild(favoriteBtn);
-                } else {
-                    // Delete button for favorite recipes
-                    const deleteBtn = document.createElement('button');
-                    deleteBtn.textContent = 'Delete';
-                    deleteBtn.addEventListener('click', () => {
-                        removeFromFavorites(recipe.name);
-                    });
-                    card.appendChild(deleteBtn);
-                }
-
-                // YouTube link button
-                const youtubeLink = document.createElement('a');
-                youtubeLink.textContent = 'Watch on YouTube';
-                youtubeLink.href = recipe.youtubeLink;
-                youtubeLink.target = '_blank';
-                card.appendChild(youtubeLink);
-
-                return card;
-            }
-
-
-            // Show more details modal
-            function showMoreDetails(recipe) {
-                const modal = document.getElementById('myModal');
-                const modalContent = document.getElementById('modal-content');
-                modal.style.display = "block";
-                modalContent.innerHTML = `
-                    <h2>${recipe.name}</h2>
-                    <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
-                    <p><strong>Instructions:</strong> ${recipe.instructions}</p>
-                    <p><strong>Serving:</strong> ${recipe.servings}</p>
-                    <p><strong>Calories per Serving:</strong> ${recipe.caloriesPerServing}</p>
-                `;
-            }
-
-            // Close modal
-            const closeModalBtn = document.getElementsByClassName('close')[0];
-            const modal = document.getElementById('myModal');
-
-            closeModalBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
-            });
-
-            window.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-
-            // Function to get star ratings
-            function getStars(rating) {
-                const roundedRating = Math.round(rating);
-                const stars = '⭐'.repeat(roundedRating);
-                return stars;
-            }
-
-            // Function to add recipe to favorites
-            function addToFavorites(recipe) {
-                if (!favorites.includes(recipe)){
-                favorites.push(recipe);
-                updateFavoritesNav();
-                saveFavoritesToLocalStorage();
-            }}
-
-            // Function to delete a recipe from favorites
-            function removeFromFavorites(recipeName) {
-                favorites = favorites.filter(recipe => recipe.name !== recipeName);
-                updateFavoritesNav();
-                saveFavoritesToLocalStorage();
-                displayRecipes(favorites);
-            }
-
-            // Update favorites in navigation bar
-            function updateFavoritesNav() {
-                const favoritesNav = document.getElementById('favorites');
-                favoritesNav.textContent = `Favorites (${favorites.length})`;
-            }
-
-            // Function to save favorites to localStorage
-            function saveFavoritesToLocalStorage() {
-                localStorage.setItem('favorites', JSON.stringify(favorites));
-            }
-
-            // Event listener for clicking on the Favorites link
-            const favoritesNav = document.getElementById('favorites');
-            favoritesNav.addEventListener('click', () => {
-                displayRecipes(favorites);
-            });
+            displayRecipes(allRecipes);
         });
+  
+    const searchInput = document.getElementById('searchInput');
+  
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredRecipes = allRecipes.filter(recipe => recipe.name.toLowerCase().includes(searchTerm));
+        displayRecipes(filteredRecipes);
+    });
+  
+    function displayRecipes(recipes) {
+        const recipesContainer = document.getElementById('recipes');
+        recipesContainer.innerHTML = '';
+  
+        recipes.forEach(recipe => {
+            const card = createRecipeCard(recipe);
+            recipesContainer.appendChild(card);
+        });
+    }
+  
+    function createRecipeCard(recipe) {
+        const card = document.createElement('div');
+        card.classList.add('recipe-card');
+  
+        const image = document.createElement('img');
+        image.src = recipe.image;
+        card.appendChild(image);
+  
+        const name = document.createElement('h2');
+        name.textContent = recipe.name;
+        card.appendChild(name);
+  
+        const difficulty = document.createElement('p');
+        difficulty.textContent = `Difficulty: ${recipe.difficulty}`;
+        card.appendChild(difficulty);
+  
+        const ratingStars = document.createElement('p');
+        ratingStars.textContent = `Rating: ${getStars(recipe.rating)}`;
+        card.appendChild(ratingStars);
+  
+        const readMoreBtn = document.createElement('a');
+        readMoreBtn.innerHTML = '<i class="fas fa-arrow-right-to-bracket fa-1xl" id="modal-icon"></i>'; 
+        readMoreBtn.addEventListener('click', () => {
+            showMoreDetails(recipe);
+        });
+        card.appendChild(readMoreBtn);
+  
+        
+  
+        if (!favorites.includes(recipe)) {
+            const favoriteBtn = document.createElement('a');
+            favoriteBtn.innerHTML = '<i class="fas fa-heart fa-1xl" id="modal-icon"></i>';
+            favoriteBtn.addEventListener('click', () => {
+                addToFavorites(recipe);
+            });
+            card.appendChild(favoriteBtn);
+        } else {
+            const deleteBtn = document.createElement('a');
+            deleteBtn.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+            deleteBtn.addEventListener('click', () => {
+                removeFromFavorites(recipe.name);
+            });
+            card.appendChild(deleteBtn);
+        }
+  
+        const youtubeLink = document.createElement('a');
+        youtubeLink.innerHTML = '<i class="fa-regular fa-circle-play fa-1xl" id="modal-icon"></i>';
+        youtubeLink.href = recipe.youtubeLink;
+        youtubeLink.target = '_blank';
+        card.appendChild(youtubeLink);
+  
+        return card;
+    }
+  
+  
+    function showMoreDetails(recipe) {
+      const modal = document.getElementById('myModal');
+      const modalContent = document.getElementById('modal-content');
+      modal.style.display = "block";
+      modalContent.innerHTML = `
+          <div class="modal-dialog modal-fullscreen-xxl-down">
+              <div class="modal-content">
+                  <div class="modal-header">
+                  <img src="${recipe.image}" class="modal-image">
+                  <div class="time-info">
+                  <h1 class="modal-title"><strong>${recipe.name}</strong> (${recipe.mealType}) </h1>
+                    <p><i class="fa-regular fa-clock"></i> Prep Time: ${recipe.prepTimeMinutes} min</p>   
+                    <p><i class="fa-solid fa-clock"></i> Cook Time: ${recipe.cookTimeMinutes} min</p>
+                    <p><strong><i class="fa-solid fa-people-group"></i></strong> ${recipe.servings} people/person</p>
+                    
+                    <div class="modal-btns">
+                    <a><i class="fa-regular fa-circle-play fa-2xl"></i></a>
+                    <a><i class="fas fa-heart fa-2xl"></i></a>
+                    <a><i class="fa-solid fa-volume-high fa-2xl"></i></a>
+                    </div>
+                  </div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  
+                  <div class="modal-body">
+                  <p>Tags: ${recipe.tags}</p>
+                      <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+                      <p><strong>Instructions:</strong> ${recipe.instructions}</p>
+  
+                      <p><strong>Calories per Serving:</strong> ${recipe.caloriesPerServing}</p>
+                  </div>
+                  
+              </div>
+          </div>
+      `;
+      const myModal = new bootstrap.Modal(modal);
+      myModal.show();
+  }
+  
+  
+    // function showMoreDetails(recipe) {
+    //     const modal = document.getElementById('myModal');
+    //     const modalContent = document.getElementById('modal-content');
+    //     modal.style.display = "block";
+    //     modalContent.innerHTML = `
+    //         <h2>${recipe.name}</h2>
+    //         <p><strong>Ingredients:</strong> ${recipe.ingredients}</p>
+    //         <p><strong>Instructions:</strong> ${recipe.instructions}</p>
+    //         <p><strong>Serving:</strong> ${recipe.servings}</p>
+    //         <p><strong>Calories per Serving:</strong> ${recipe.caloriesPerServing}</p>
+    //     `;
+    // }
+  
+    const closeModalBtn = document.getElementsByClassName('close')[0];
+    const modal = document.getElementById('myModal');
+  
+  function mRead(ingredients){
+  
+    // Create New Speech Synthesis Utterance 
+  let utterance = new SpeechSynthesisUtterance(`Before we get you started 
+  lets make sure you have the following ingredients... ${ingredients}`);
+  utterance.rate = 0.9
+    
+  const synth = speechSynthesis;
+   
+   let voices = synth.getVoices()
+   
+       utterance.voice = voices[0];
+      
+      utterance.addEventListener("end", (event) => {
+  
+        setTimeout(() => {
+          
+          let utterance2 = new SpeechSynthesisUtterance(`Shall we begin?`);
+          utterance2.voice = voices[0];
+          utterance2.rate = 0.8
+          speechSynthesis.speak(utterance2);
+  
+          const user = confirm("Shall we begin?");
+  
+          if(user)
+          {
+              let utterance3 = new SpeechSynthesisUtterance(`Great let's begin.`);
+              utterance3.voice = voices[0];
+              utterance3.rate = 0.8
+              speechSynthesis.speak(utterance3);
+  
+              const ins = instructions.split(".,");
+              let nextStep = true;
+  
+              let counter = 0;
+  
+              let inter = setInterval(() => {
+  
+                if(nextStep)
+                {
+                  utterance3.text = `Step ${counter+1}, ${ins[counter]}`
+                  speechSynthesis.speak(utterance3);
+  
+                  nextStep = false
+                  counter++;
+  
+                  utterance3.addEventListener("end", (event) => {
+                    nextStep = true
+                  });
+                }
+  
+                if(counter == ins.length){
+  
+                  setTimeout(() => {
+                    utterance3.text = `Cooking complete, Well done!`
+                    speechSynthesis.speak(utterance3);
+                  }, 3000)
+                  
+                  clearInterval(inter);
+                }
+              }, 1500)
+            }
+        }, 1000)
+      });
+      
+      speechSynthesis.speak(utterance);
+  
+  }
+  
+  // function filterRecipes({ cuisine }) {
+  //   return recipes.filter(recipe => {
+  //       return recipe.cuisine.toLowerCase() === cuisine.toLowerCase();
+  //   });
+  // }
+    closeModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+  
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+  
+    function getStars(rating) {
+        const roundedRating = Math.round(rating);
+        const stars = '🔥'.repeat(roundedRating);
+        return stars;
+    }
+  
+  
+    function addToFavorites(recipe) {
+        if (!favorites.includes(recipe)){
+        favorites.push(recipe);
+        updateFavoritesNav();
+        saveFavoritesToLocalStorage();
+    }}
+  
+    function removeFromFavorites(recipeName) {
+        favorites = favorites.filter(recipe => recipe.name !== recipeName);
+        updateFavoritesNav();
+        saveFavoritesToLocalStorage();
+        displayRecipes(favorites);
+    }
+  
+    function updateFavoritesNav() {
+        const favoritesNav = document.getElementById('favorites');
+        favoritesNav.textContent = `Favorites (${favorites.length})`;
+    }
+  
+    function saveFavoritesToLocalStorage() {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }
+  
+    const favoritesNav = document.getElementById('favorites');
+    favoritesNav.addEventListener('click', () => {
+        displayRecipes(favorites);
+    });
+});
     </script>
 </body>
 </html>
