@@ -682,21 +682,21 @@ footer{
     const myModal = new bootstrap.Modal(modal);
     myModal.show();
 
-    const textToSpeechBtn = document.getElementById('textToSpeechBtn');
-    textToSpeechBtn.addEventListener('click', () => {
-        // Call the mRead function passing ingredients and instructions
-        mRead(recipe.ingredients, recipe.instructions);
-    });
-
-    const favoriteBtn = modalContent.querySelector('.favoriteBtn');
+    
+const favoriteBtn = modalContent.querySelector('.favoriteBtn');
     favoriteBtn.addEventListener('click', () => {
         addToFavorites(recipe);
         updateFavoritesNav();
     });
 }
+const textToSpeechBtn = document.getElementById('textToSpeechBtn');
+    textToSpeechBtn.addEventListener('click', () => {
+        // Call the mRead function passing ingredients and instructions
+        mRead(recipe.ingredients, recipe.instructions);
+    });
 
 
-
+    
   
   
     // function showMoreDetails(recipe) {
